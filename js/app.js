@@ -1,14 +1,10 @@
-/*
- * Create a list that holds all of your cards
- */
-
+/* eslint-env browser */
 
 /*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ * Array that holds all of the cards
  */
+const deck = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 'anchor', 'bolt',
+  'bolt', 'cube', 'cube', 'leaf', 'leaf', 'bicycle', 'bicycle', 'bomb', 'bomb'];
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -28,6 +24,31 @@ function shuffle(array) {
   return shuffledArray;
 }
 
+/*
+ * Display the cards on the page
+ *   - Shuffles the list of cards using the "shuffle" method
+ *   - Loops through each card and creates its HTML
+ *   - Adds each card's HTML to the page
+ */
+function displayCards() {
+  const shuffledDeck = shuffle(deck);
+  const deckUl = document.querySelector('.deck');
+
+  shuffledDeck.forEach((card) => {
+    const cardI = document.createElement('i');
+    cardI.classList.add('fa', `fa-${card}`);
+
+    const cardLi = document.createElement('li');
+
+    // TODO: Currently just displaying the cards "face up"
+    cardLi.classList.add('card', 'open', 'show');
+    cardLi.appendChild(cardI);
+
+    deckUl.appendChild(cardLi);
+  });
+}
+
+displayCards();
 
 /*
  * set up the event listener for a card. If a card is clicked:
