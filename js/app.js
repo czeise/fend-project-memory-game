@@ -24,31 +24,9 @@ function shuffle(array) {
   return shuffledArray;
 }
 
-/*
- * Display the cards on the page
- *   - Shuffles the list of cards using the "shuffle" method
- *   - Loops through each card and creates its HTML
- *   - Adds each card's HTML to the page
- */
-function displayCards() {
-  const shuffledDeck = shuffle(deck);
-  const deckUl = document.querySelector('.deck');
-
-  shuffledDeck.forEach((card) => {
-    const cardI = document.createElement('i');
-    cardI.classList.add('fa', `fa-${card}`);
-
-    const cardLi = document.createElement('li');
-
-    // TODO: Currently just displaying the cards "face up"
-    cardLi.classList.add('card', 'open', 'show');
-    cardLi.appendChild(cardI);
-
-    deckUl.appendChild(cardLi);
-  });
+function displayCard(card) {
+  card.classList.add('open', 'show');
 }
-
-displayCards();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -66,3 +44,33 @@ displayCards();
  *    + if all cards have matched, display a message with the final score (put this functionality in
  *      another function that you call from this one)
  */
+function handleCardClick(event) {
+  const card = event.target;
+  displayCard(card);
+}
+
+/*
+ * Display the cards on the page
+ *   - Shuffles the list of cards using the "shuffle" method
+ *   - Loops through each card and creates its HTML
+ *   - Adds each card's HTML to the page
+ */
+function displayCards() {
+  const shuffledDeck = shuffle(deck);
+  const deckUl = document.querySelector('.deck');
+
+  shuffledDeck.forEach((card) => {
+    const cardI = document.createElement('i');
+    cardI.classList.add('fa', `fa-${card}`);
+
+    const cardLi = document.createElement('li');
+
+    cardLi.classList.add('card');
+    cardLi.appendChild(cardI);
+    cardLi.addEventListener('click', handleCardClick);
+
+    deckUl.appendChild(cardLi);
+  });
+}
+
+displayCards();
