@@ -69,6 +69,12 @@ h1 {
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+
+    /* TODO: Look into a nice animation. The code below properly rotates the
+    card and displays the background, but the font icon from below shows right
+    away! :( */
+    /* transition: transform 1s, background 0s .5s;
+    transform: rotateY(.5turn); */
 }
 
 .deck .card.show {
