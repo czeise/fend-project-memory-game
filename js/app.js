@@ -27,11 +27,11 @@ function shuffle(array) {
 }
 
 function displayCard(card) {
-  card.classList.add('open', 'show');
+  card.classList.add('is-flipped');
 }
 
 function hideCard(card) {
-  card.classList.remove('open', 'show');
+  card.classList.remove('is-flipped');
 }
 
 /*
@@ -51,7 +51,7 @@ function hideCard(card) {
  *      another function that you call from this one)
  */
 function handleCardClick(event) {
-  const card = event.target;
+  const card = event.target.parentNode;
   openCards.push(card);
 
   if (openCards.length < 3) {
@@ -90,13 +90,17 @@ function displayCards() {
   const deckUl = document.querySelector('.deck');
 
   shuffledDeck.forEach((card) => {
-    const cardI = document.createElement('i');
-    cardI.classList.add('fa', `fa-${card}`);
+    const front = document.createElement('i');
+    front.classList.add('face', 'front', 'fa', `fa-${card}`);
+
+    const back = document.createElement('i');
+    back.classList.add('face', 'back');
 
     const cardLi = document.createElement('li');
 
     cardLi.classList.add('card');
-    cardLi.appendChild(cardI);
+    cardLi.appendChild(front);
+    cardLi.appendChild(back);
     cardLi.addEventListener('click', handleCardClick);
 
     deckUl.appendChild(cardLi);
