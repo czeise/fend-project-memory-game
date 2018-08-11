@@ -69,11 +69,21 @@ function handleCardClick(event) {
       console.log('match');
       openCards = [];
     } else {
-      console.log('no match');
+      console.log('mismatch');
 
       openCards.forEach((c) => {
-        hideCard(c);
+        // Display "mismatch style"
+        c.firstChild.classList.remove('front');
+        c.firstChild.classList.add('mismatch');
+
+        // Wait a second so user can see card, then remove "mismatch" style
+        setTimeout(() => {
+          c.firstChild.classList.add('front');
+          c.firstChild.classList.remove('mismatch');
+          hideCard(c);
+        }, 1000);
       });
+
       openCards = [];
     }
   }
