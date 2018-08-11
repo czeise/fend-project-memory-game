@@ -6,6 +6,8 @@
 const deck = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 'anchor', 'bolt',
   'bolt', 'cube', 'cube', 'leaf', 'leaf', 'bicycle', 'bicycle', 'bomb', 'bomb'];
 
+let openCards = [];
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   const shuffledArray = array;
@@ -28,6 +30,10 @@ function displayCard(card) {
   card.classList.add('open', 'show');
 }
 
+function hideCard(card) {
+  card.classList.remove('open', 'show');
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this
@@ -46,7 +52,31 @@ function displayCard(card) {
  */
 function handleCardClick(event) {
   const card = event.target;
-  displayCard(card);
+  openCards.push(card);
+
+  if (openCards.length < 3) {
+    displayCard(card);
+  }
+
+  if (openCards.length === 2) {
+    if (openCards[0].firstChild === openCards[1].firstChild) {
+      console.log('same exact card');
+
+      openCards.pop();
+      return;
+    }
+    if (openCards[0].firstChild.className === openCards[1].firstChild.className) {
+      console.log('match');
+      openCards = [];
+    } else {
+      console.log('no match');
+
+      openCards.forEach((c) => {
+        hideCard(c);
+      });
+      openCards = [];
+    }
+  }
 }
 
 /*
