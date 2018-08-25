@@ -146,7 +146,12 @@ https://3dtransforms.desandro.com/card-flip */
     display: inline-block;
 }
 
-.score-panel .restart {
+.score-panel .right {
     float: right;
+}
+
+.score-panel .restart {
     cursor: pointer;
+    display: inline;
+    margin: 0 0 0 5px;
 }
