@@ -63,9 +63,9 @@ h1 {
     transform-style: preserve-3d;
 }
 
-.shake {
-    animation: 1s shake;
-}
+/* .shake {
+    animation: shake 0.82s;
+} */
 
 .deck .card .face {
     position: absolute;
@@ -87,9 +87,6 @@ h1 {
 /* Alternative front face */
 .deck .card .mismatch {
     background: red;
-    font-size: 33px;
-    cursor: default;
-    transform: rotateY(180deg);
 }
 
 .deck .card .back {
@@ -109,7 +106,7 @@ https://3dtransforms.desandro.com/card-flip */
 }
 
 /* https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
-@keyframes shake {
+/* @keyframes shake {
     10%, 90% {
       transform: translate3d(-1px, 0, 0);
     }
@@ -125,7 +122,7 @@ https://3dtransforms.desandro.com/card-flip */
     40%, 60% {
       transform: translate3d(4px, 0, 0);
     }
-  }
+} */
 
 /*
  * Styles for the Score Panel

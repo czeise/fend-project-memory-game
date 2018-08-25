@@ -73,15 +73,17 @@ function handleCardClick(event) {
 
       openCards.forEach((c) => {
         // Display "mismatch style"
-        c.firstChild.classList.remove('front');
-        c.firstChild.classList.add('mismatch');
+        setTimeout(() => {
+          // c.classList.add('shake');
+          c.firstChild.classList.add('mismatch');
+        }, 1000);
 
         // Wait a second so user can see card, then remove "mismatch" style
         setTimeout(() => {
-          c.firstChild.classList.add('front');
           c.firstChild.classList.remove('mismatch');
+          // c.classList.remove('shake');
           hideCard(c);
-        }, 1000);
+        }, 2000);
       });
 
       openCards = [];
