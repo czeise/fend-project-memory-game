@@ -8,6 +8,9 @@ const deck = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 
 
 let openCards = [];
 let matchCount = 0;
+let gameWon = false;
+let timerId;
+let gameRunning = false;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -35,6 +38,20 @@ function hideCard(card) {
   card.classList.remove('is-flipped');
 }
 
+function startTimer() {
+  let count = 1;
+  const timerElement = document.querySelector('.timer');
+
+  timerId = setInterval(() => {
+    timerElement.textContent = count;
+    count += 1;
+
+    if (gameWon) {
+      clearInterval(timerId);
+    }
+  }, 1000);
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this
@@ -52,6 +69,11 @@ function hideCard(card) {
  *      another function that you call from this one)
  */
 function handleCardClick(event) {
+  if (!gameRunning) {
+    startTimer();
+    gameRunning = true;
+  }
+
   const card = event.target.parentNode;
   openCards.push(card);
 
@@ -72,6 +94,7 @@ function handleCardClick(event) {
       matchCount += 1;
       if (matchCount === 8) {
         console.log('You win!');
+        gameWon = true;
       }
     } else {
       console.log('mismatch');
