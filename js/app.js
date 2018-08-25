@@ -7,6 +7,7 @@ const deck = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 
   'bolt', 'cube', 'cube', 'leaf', 'leaf', 'bicycle', 'bicycle', 'bomb', 'bomb'];
 
 let openCards = [];
+let moveCount = 0;
 let matchCount = 0;
 let gameWon = false;
 let timerId;
@@ -69,6 +70,10 @@ function startTimer() {
  *      another function that you call from this one)
  */
 function handleCardClick(event) {
+  if (gameWon) {
+    return;
+  }
+
   if (!gameRunning) {
     startTimer();
     gameRunning = true;
@@ -82,6 +87,9 @@ function handleCardClick(event) {
   }
 
   if (openCards.length === 2) {
+    moveCount += 1;
+    document.querySelector('.moves').textContent = moveCount;
+
     if (openCards[0].firstChild === openCards[1].firstChild) {
       console.log('same exact card');
 
