@@ -69,6 +69,10 @@ function startTimer() {
  *      another function that you call from this one)
  */
 function handleCardClick(event) {
+  if (gameWon) {
+    return;
+  }
+
   if (!gameRunning) {
     startTimer();
     gameRunning = true;
