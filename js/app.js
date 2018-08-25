@@ -53,6 +53,13 @@ function startTimer() {
   }, 1000);
 }
 
+function decreaseStars() {
+  const stars = document.querySelectorAll('.fa-star');
+  const star = stars[stars.length - 1];
+  star.classList.remove('fa-star');
+  star.classList.add('fa-star-o');
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this
@@ -89,6 +96,11 @@ function handleCardClick(event) {
   if (openCards.length === 2) {
     moveCount += 1;
     document.querySelector('.moves').textContent = moveCount;
+
+    // Decrease the star rating after 10, 20, and 30 moves.
+    if ([11, 21, 31].includes(moveCount)) {
+      decreaseStars();
+    }
 
     if (openCards[0].firstChild === openCards[1].firstChild) {
       console.log('same exact card');
