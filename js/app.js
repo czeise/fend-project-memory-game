@@ -7,6 +7,7 @@ const deck = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 
   'bolt', 'cube', 'cube', 'leaf', 'leaf', 'bicycle', 'bicycle', 'bomb', 'bomb'];
 
 let openCards = [];
+let matchCount = 0;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -68,6 +69,10 @@ function handleCardClick(event) {
     if (openCards[0].firstChild.className === openCards[1].firstChild.className) {
       console.log('match');
       openCards = [];
+      matchCount += 1;
+      if (matchCount === 8) {
+        console.log('You win!');
+      }
     } else {
       console.log('mismatch');
 
