@@ -155,3 +155,24 @@ https://3dtransforms.desandro.com/card-flip */
     display: inline;
     margin: 0 0 0 5px;
 }
+
+dialog#win {
+    border: none;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    text-align: center;
+}
+
+dialog#win::backdrop {
+    background: rgba(0,0,0,.5);
+}
+
+dialog#win button {
+    background-color: #02ccba;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
