@@ -8,9 +8,11 @@ const deck = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 
 
 let openCards = [];
 let moveCount = 0;
+let starsCount = 3;
 let matchCount = 0;
 let gameWon = false;
 let timerId;
+let count = 1;
 let gameRunning = false;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -40,7 +42,6 @@ function hideCard(card) {
 }
 
 function startTimer() {
-  let count = 1;
   const timerElement = document.querySelector('.timer');
 
   timerId = setInterval(() => {
@@ -58,6 +59,22 @@ function decreaseStars() {
   const star = stars[stars.length - 1];
   star.classList.remove('fa-star');
   star.classList.add('fa-star-o');
+
+  starsCount -= 1;
+  document.querySelector('.stars-count').textContent = starsCount;
+}
+
+function resetStars() {
+  starsCount = 3;
+
+  const stars = document.querySelectorAll('.fa-star-o');
+
+  stars.forEach((star) => {
+    star.classList.remove('fa-star-o');
+    star.classList.add('fa-star');
+
+    document.querySelector('.stars-count').textContent = starsCount;
+  });
 }
 
 /*
@@ -95,7 +112,10 @@ function handleCardClick(event) {
 
   if (openCards.length === 2) {
     moveCount += 1;
-    document.querySelector('.moves').textContent = moveCount;
+    document.querySelectorAll('.moves').forEach((moveSpan) => {
+      const span = moveSpan;
+      span.textContent = moveCount;
+    });
 
     // Decrease the star rating after 10, 20, and 30 moves.
     if ([11, 21, 31].includes(moveCount)) {
@@ -115,6 +135,8 @@ function handleCardClick(event) {
       if (matchCount === 8) {
         console.log('You win!');
         gameWon = true;
+        document.querySelector('#win .timer').textContent = count;
+        document.querySelector('#win').showModal();
       }
     } else {
       console.log('mismatch');
@@ -149,6 +171,10 @@ function displayCards() {
   const shuffledDeck = shuffle(deck);
   const deckUl = document.querySelector('.deck');
 
+  while (deckUl.firstChild) {
+    deckUl.removeChild(deckUl.firstChild);
+  }
+
   shuffledDeck.forEach((card) => {
     const front = document.createElement('i');
     front.classList.add('face', 'front', 'fa', `fa-${card}`);
@@ -167,4 +193,34 @@ function displayCards() {
   });
 }
 
+function resetMoveCount() {
+  moveCount = 0;
+
+  document.querySelectorAll('.moves').forEach((moveSpan) => {
+    const span = moveSpan;
+    span.textContent = moveCount;
+  });
+}
+
+function resetTimer() {
+  document.querySelector('.timer').textContent = 0;
+  count = 1;
+}
+
+function restart() {
+  openCards = [];
+  matchCount = 0;
+  gameWon = false;
+  gameRunning = false;
+
+  resetStars();
+  resetMoveCount();
+  resetTimer();
+  displayCards();
+
+  document.querySelector('#win').close();
+}
+
+// Initialize game
 displayCards();
+document.querySelector('#restart').addEventListener('click', restart);
