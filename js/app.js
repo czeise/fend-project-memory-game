@@ -47,10 +47,6 @@ function startTimer() {
   timerId = setInterval(() => {
     timerElement.textContent = count;
     count += 1;
-
-    if (gameWon) {
-      clearInterval(timerId);
-    }
   }, 1000);
 }
 
@@ -134,6 +130,7 @@ function handleCardClick(event) {
       matchCount += 1;
       if (matchCount === 8) {
         console.log('You win!');
+        clearInterval(timerId);
         gameWon = true;
         document.querySelector('#win .timer').textContent = count;
         document.querySelector('#win').showModal();
@@ -203,6 +200,7 @@ function resetMoveCount() {
 }
 
 function resetTimer() {
+  clearInterval(timerId);
   document.querySelector('.timer').textContent = 0;
   count = 1;
 }
@@ -210,8 +208,8 @@ function resetTimer() {
 function restart() {
   openCards = [];
   matchCount = 0;
-  gameWon = false;
   gameRunning = false;
+  gameWon = false;
 
   resetStars();
   resetMoveCount();
@@ -224,3 +222,4 @@ function restart() {
 // Initialize game
 displayCards();
 document.querySelector('#restart').addEventListener('click', restart);
+document.querySelector('.restart').addEventListener('click', restart);
