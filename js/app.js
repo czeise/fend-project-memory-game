@@ -113,8 +113,9 @@ function incrementMoves() {
     span.textContent = moveCount;
   });
 
-  // Decrease the star rating after 13, 20, and 24 moves.
-  if ([14, 21, 25].includes(moveCount)) {
+  // Decrease the star rating after 13 and 20 moves. Per the rubric, 1 star is the minimum score,
+  // not 0.
+  if ([14, 21].includes(moveCount)) {
     decreaseStars();
   }
 }

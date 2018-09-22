@@ -18,4 +18,4 @@ The game ends once all cards have been correctly matched.
 
 ## Dependencies
 - [Font Awesome icons](https://fontawesome.com/v4.7.0/icons/)
-- [Coda font](https://fonts.google.com/specimen/Coda?selection.family=Coda)
+- [Coda font](https://fonts.google.com/specimen/Coda?selection.family=Coda) from Google Fonts
