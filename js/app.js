@@ -34,7 +34,12 @@ function shuffle(array) {
 }
 
 function displayCard(card) {
+  if (card.classList.contains('is-flipped')) {
+    return false;
+  }
+
   card.classList.add('is-flipped');
+  return true;
 }
 
 function hideCard(card) {
@@ -73,6 +78,47 @@ function resetStars() {
   });
 }
 
+function handleMatch() {
+  openCards = [];
+  matchCount += 1;
+  if (matchCount === 8) {
+    clearInterval(timerId);
+    gameWon = true;
+    document.querySelector('#win .timer').textContent = count;
+    document.querySelector('#win').showModal();
+  }
+}
+
+function handleMismatch() {
+  openCards.forEach((c) => {
+    // Display "mismatch style"
+    setTimeout(() => {
+      c.firstChild.classList.add('mismatch');
+    }, 1000);
+
+    // Wait a second so user can see card, then remove "mismatch" style
+    setTimeout(() => {
+      c.firstChild.classList.remove('mismatch');
+      hideCard(c);
+    }, 2000);
+  });
+
+  openCards = [];
+}
+
+function incrementMoves() {
+  moveCount += 1;
+  document.querySelectorAll('.moves').forEach((moveSpan) => {
+    const span = moveSpan;
+    span.textContent = moveCount;
+  });
+
+  // Decrease the star rating after 13, 20, and 24 moves.
+  if ([14, 21, 25].includes(moveCount)) {
+    decreaseStars();
+  }
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this
@@ -103,57 +149,21 @@ function handleCardClick(event) {
   openCards.push(card);
 
   if (openCards.length < 3) {
-    displayCard(card);
-  }
-
-  if (openCards.length === 2) {
-    moveCount += 1;
-    document.querySelectorAll('.moves').forEach((moveSpan) => {
-      const span = moveSpan;
-      span.textContent = moveCount;
-    });
-
-    // Decrease the star rating after 13, 20, and 24 moves.
-    if ([14, 21, 25].includes(moveCount)) {
-      decreaseStars();
-    }
-
-    if (openCards[0].firstChild === openCards[1].firstChild) {
-      console.log('same exact card');
-
+    // If the card is already flipped, don't do anything. It's either already matched, the first
+    // open card in the queue, or it's currently being flipped back.
+    if (!displayCard(card)) {
       openCards.pop();
       return;
     }
+  }
+
+  if (openCards.length === 2) {
+    incrementMoves();
+
     if (openCards[0].firstChild.className === openCards[1].firstChild.className) {
-      console.log('match');
-      openCards = [];
-      matchCount += 1;
-      if (matchCount === 8) {
-        console.log('You win!');
-        clearInterval(timerId);
-        gameWon = true;
-        document.querySelector('#win .timer').textContent = count;
-        document.querySelector('#win').showModal();
-      }
+      handleMatch();
     } else {
-      console.log('mismatch');
-
-      openCards.forEach((c) => {
-        // Display "mismatch style"
-        setTimeout(() => {
-          // c.classList.add('shake');
-          c.firstChild.classList.add('mismatch');
-        }, 1000);
-
-        // Wait a second so user can see card, then remove "mismatch" style
-        setTimeout(() => {
-          c.firstChild.classList.remove('mismatch');
-          // c.classList.remove('shake');
-          hideCard(c);
-        }, 2000);
-      });
-
-      openCards = [];
+      handleMismatch();
     }
   }
 }
