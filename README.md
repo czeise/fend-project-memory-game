@@ -2,7 +2,6 @@
 This Memory Game project is part of [Udacity's Front-End Web Developer Nanodegree](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001).
 
 ## Table of Contents
-
 * [Game Details](#game-details)
 * [Dependencies](#dependencies)
 
@@ -18,4 +17,5 @@ Each turn:
 The game ends once all cards have been correctly matched.
 
 ## Dependencies
-TODO: Document any dependencies this project requires.
+- [Font Awesome icons](https://fontawesome.com/v4.7.0/icons/)
+- [Coda font](https://fonts.google.com/specimen/Coda?selection.family=Coda)
