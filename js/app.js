@@ -117,8 +117,8 @@ function handleCardClick(event) {
       span.textContent = moveCount;
     });
 
-    // Decrease the star rating after 10, 20, and 30 moves.
-    if ([11, 21, 31].includes(moveCount)) {
+    // Decrease the star rating after 13, 20, and 24 moves.
+    if ([14, 21, 25].includes(moveCount)) {
       decreaseStars();
     }
 
